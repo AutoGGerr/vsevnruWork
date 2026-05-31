@@ -274,7 +274,7 @@ function initManagers() {
         el.style.color = '';
       });
     });
- 
+  
   managersTbody.addEventListener('click', (e) => {
     const deleteBtn = e.target.closest('.managers__btn-delete');
     if (!deleteBtn) return;
