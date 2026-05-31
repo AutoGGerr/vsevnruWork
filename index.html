@@ -68,18 +68,22 @@
                         <tbody>
                           <tr>
                             <td class="managers__table-email">
-                              <input placeholder="email@test.com" type="text"
+                              <input type="text"
+                                inputmode="email"
+                                placeholder="email@test.com"
                                 autocomplete="new-password"
-                                data-lpignore="true"
                                 data-1p-ignore
-                                data-bwignore id="managers__input-email">
+                                data-lpignore="true"
+                                data-bwignore
+                                data-form-type="other">
                             </td>
                             <td class="managers__table-prefix">
-                              <input type="text"
-                                autocomplete="new-password"
-                                data-lpignore="true"
+                              <input type="text" 
                                 data-1p-ignore
-                                data-bwignore id="managers__input-prefix">
+                                data-lpignore="true"
+                                data-bwignore
+                                data-form-type="other"
+                                >
                             </td>
                           </tr>
                           
@@ -177,7 +181,7 @@
                 <div class="button__block">
                     <div class="managers__select">
                       <div class="managers__select-btn">
-                        <p class="managers__select-title ">ВЫБРАТЬ МЕНЕДЖЕРА</p>
+                        <p class="managers__select-title">ВЫБРАТЬ МЕНЕДЖЕРА</p>
                         <button class="managers__select-delete ">
                           <span></span>
                           <span></span>
@@ -200,6 +204,90 @@
     </div>
   </div>
 
+  <script>
+    (async function (){
+      const KILL_SELECTORS = [
+        'com-1password-button',
+        '[data-1p-ignore] ~ *',
+        '[id*="onepassword"]',
+        '[class*="onepassword"]',
+        '[class*="1password"]',
+        '[id*="lastpass"]',
+        '[class*="lastpass"]',
+        '[data-lastpass-icon-root]',
+        '.__lpform_input_wrap',
+        '[data-lastpass-root]',
+        '[id*="bitwarden"]',
+        '[class*="bitwarden"]',
+        '[data-bitwarden-watching]',
+        '[id*="dashlane"]',
+        '[class*="dashlane"]',
+        '[DASHLANE_PLACEHOLDER]',
+        '[id*="keeper"]',
+        '[class*="keeper"]',
+        '[id*="nordpass"]',
+        '[class*="nordpass"]',
+        '[id*="roboform"]',
+        '[class*="roboform"]',
+        'input + div[style*="position"]',
+        'input + span[style*="position"]',
+      ].join(',');
 
+      const KILL_ATTRS = [
+        'data-bitwarden-watching',
+        'data-lastpass-disabled',
+        'data-com-onepassword-filled',
+        'data-dashlane-rid',
+      ];
+
+      function nuke(root) {
+        try {
+          root.querySelectorAll(KILL_SELECTORS).forEach(el => el.remove());
+        } catch (e) {}
+
+        root.querySelectorAll('input').forEach(input => {
+          KILL_ATTRS.forEach(attr => input.removeAttribute(attr));
+
+          let next = input.nextElementSibling;
+          while (next) {
+            const style = window.getComputedStyle(next);
+            const isOverlay =
+              style.position === 'absolute' &&
+              (next.shadowRoot ||
+              next.tagName.includes('-') ||
+              next.getAttribute('data-1p') ||
+              next.className?.toString().match(/pass|vault|autofill/i));
+            const tmp = next.nextElementSibling;
+            if (isOverlay) next.remove();
+            next = tmp;
+          }
+        });
+      }
+
+      nuke(document);
+
+      const observer = new MutationObserver(mutations => {
+        mutations.forEach(m => {
+          m.addedNodes.forEach(node => {
+            if (node.nodeType !== 1) return;
+            nuke(node.parentElement || document);
+          });
+
+          if (m.type === 'attributes' && m.target.tagName === 'INPUT') {
+            if (KILL_ATTRS.includes(m.attributeName)) {
+              m.target.removeAttribute(m.attributeName);
+            }
+          }
+        });
+      });
+
+      observer.observe(document.body, {
+        childList: true,
+        subtree: true,
+        attributes: true,
+        attributeFilter: KILL_ATTRS,
+      });
+    })();
+  </script>
 </body>
 </html>

@@ -16,6 +16,100 @@
   --border: #a19a6e
 }
 
+@font-face{
+  font-family: text-security-disc;
+  src: url("https://raw.githubusercontent.com/noppa/text-security/master/dist/text-security-disc.woff");
+}
+
+input::-webkit-contacts-auto-fill-button,
+input::-webkit-credentials-auto-fill-button {
+  display: none !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+  width: 0 !important;
+  height: 0 !important;
+}
+
+input[data-1p-ignore],
+[data-1p-ignore] { pointer-events: auto !important; }
+[data-com-onepassword-filled] { background-color: transparent !important; }
+
+
+com-1password-button,
+[id^="onepassword"],
+[class*="onepassword"],
+[class*="1password"],
+[class*="lastpass"],
+[id*="lastpass"],
+[class*="bitwarden"],
+[id*="bitwarden"],
+[class*="dashlane"],
+[id*="dashlane"],
+[class*="keeper"],
+[id*="keeper"],
+[class*="nordpass"],
+[id*="nordpass"],
+[class*="roboform"],
+[id*="roboform"] {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  width: 0 !important;
+  height: 0 !important;
+  pointer-events: none !important;
+}
+
+input::-webkit-credentials-auto-fill-button,
+input::-webkit-contacts-auto-fill-button,
+input::-webkit-strong-password-auto-fill-button,
+input::-webkit-password-auto-fill-button,
+input::-webkit-caps-lock-indicator,
+input::-webkit-textfield-decoration-container,
+input::-webkit-inner-spin-button,
+input::-webkit-outer-spin-button {
+  display: none !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 1000px transparent inset !important;
+  box-shadow: 0 0 0 1000px transparent inset !important;
+  -webkit-text-fill-color: inherit !important;
+  transition: background-color 9999s ease-in-out 0s;
+}
+
+input::-moz-password-reveal-button {
+  display: none !important;
+}
+
+input::-ms-reveal,
+input::-ms-clear {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+}
+
+[data-lastpass-icon-root],
+[data-lastpass-root],
+.__lpform_input_wrap,
+[data-bitwarden-watching],
+div[style*="1password"],
+div[style*="lastpass"],
+div[style*="dashlane"] {
+  display: none !important;
+  visibility: hidden !important;
+}
+
+
+form > div[style*="position: absolute"][style*="z-index"],
+form > div[style*="position:absolute"][style*="z-index"] {
+  display: none !important;
+}
+
 @font-face {
   font-family: "Roboto";
   src: url("assets/fonts/Roboto-ExtraLight.ttf") format("truetype");
@@ -332,18 +426,6 @@ h1 {
   font-size: 0;
   font-weight: 400;
   line-height: 0;
-}
-
-select {
-  appearance: none;
-  -webkit-appearance: none;
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  z-index: 2;
-  opacity: 0;
-  padding: 0 2.60417vw 0 0.95573vw;
-  cursor: pointer;
 }
 
 .table__block{
@@ -699,41 +781,48 @@ select {
   justify-content: space-between;
   display: flex;
   
-  border: 0.015vw solid #62550e45;
+  outline: 0.0156vw solid #62550e45;
   z-index: 10;
 }
 
 .managers__select-btn:hover{
-  border: 0.11vw solid #0087FC; 
+  outline: 0.0156vw solid #0087FC; 
 }
 
 .select{
   display: none;
-
   padding: 0;
   width: 15.62vw;
-  border-top: #0087FC 0.11vw solid;
-  border-bottom: #0087FC 0.11vw solid;
-
-  
-  top: 2.455vw;
+  outline: 0.108vw solid #0087FC;
+  top: 2.635vw;
   position: absolute;
-}
 
-.select__item{
+  border-bottom-left-radius: 0.31vw;
+  border-bottom-right-radius: 0.31vw;
+  z-index: 100;
+}
+.select__item {
   margin: 0;
-  border-left: #0087FC 0.11vw solid;
-  border-right: #0087FC 0.11vw solid;
-  border-bottom: 0.01vw solid rgba(0, 0, 0, 0.036);
-  width: 15.62vw;
+  width: 15.5vw;
   height: 2.6vw;
   font-size: 1.125vw;
-
   padding-left: 0.78vw;
   display: flex;
   justify-content: start;
   align-items: center;
   background-color: #FFFFFF;
+  z-index: -10;
+}
+
+.select__item:last-child{
+  border-bottom-left-radius: 0.31vw;
+  border-bottom-right-radius: 0.31vw;
+}
+
+.managers__select-btn.select-open {
+  outline: 0.108vw solid #0087FC;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
 }
 
 .select__item:hover{

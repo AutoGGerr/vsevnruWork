@@ -173,12 +173,15 @@ function initManagers() {
   selectBtn.addEventListener('click', (e) => {
     selectTitle.classList.toggle('arrow-active');
     selectBlock.classList.toggle('select-active');
+    selectBtn.classList.add('select-open');
 
     document.addEventListener('click', (e) => {
       const isInside = e.target.closest('.managers__select');
       if (!isInside) {
         selectBlock.classList.remove('select-active');
         selectTitle.classList.remove('arrow-active');
+        selectBtn.classList.remove('select-open');
+        
       }
     });
   });
@@ -226,6 +229,7 @@ function initManagers() {
     // Применяем стили к выбранному
     item.style.background = '#F6FBFF';
     item.style.color = '#0087FC';
+    selectBtn.classList.remove('select-open');
 
     selectTitle.textContent = item.textContent;
     selectTitle.classList.add('select__title-active');
@@ -292,3 +296,4 @@ if (activeLink) {
   }
   pageInits[currentTab]?.();
 }
+
