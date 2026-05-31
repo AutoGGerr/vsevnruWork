@@ -734,6 +734,15 @@ h1 {
   right: -3.645vw;
   top: 56%;
 }
+
+.managers__btn-add:hover{
+  background-color: #62550e2f;
+}
+
+.managers__btn-add:hover span{
+  background-color: #ffffff;
+}
+
 .managers__stroke{
   position: relative;
 }
@@ -755,6 +764,10 @@ h1 {
   right: -3.645vw;
 }
 
+.managers__btn-delete:hover{
+  background-color: #62550e2f;
+}
+
 .managers__table-btn{
   display: flex;
   position: absolute;
@@ -767,7 +780,12 @@ h1 {
   background-color: #62550e51;
 }
 
+.managers__btn-delete:hover span{
+  background-color: #ffffff;
+}
+
 .managers__select-btn {
+  cursor: pointer;
   width: 15.62vw;
   height: 2.60vw;
 
@@ -832,7 +850,7 @@ h1 {
 }
 
 .select__item:hover{
-  background-color: #FED839;
+  background-color: #FED839 !important;
 }
 
 .managers__select{

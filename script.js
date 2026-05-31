@@ -175,13 +175,19 @@ function initManagers() {
     selectBlock.classList.toggle('select-active');
     selectBtn.classList.toggle('select-open');
 
+    if (selectBlock.classList.contains('select-active')) {
+    setTimeout(() => {
+      const rect = selectBlock.getBoundingClientRect();
+      const bottomOfSelect = rect.bottom + window.scrollY;
+      window.scrollTo({ top: bottomOfSelect - window.innerHeight + 20, behavior: 'smooth' });
+    }, 0);
+  }
     document.addEventListener('click', (e) => {
       const isInside = e.target.closest('.managers__select');
       if (!isInside) {
         selectBlock.classList.remove('select-active');
         selectTitle.classList.remove('arrow-active');
         selectBtn.classList.remove('select-open');
-        
       }
     });
   });
