@@ -166,6 +166,20 @@ function initManagers() {
   let IDmanager = existingRows.length;
   let NumManager = existingRows.length;
 
+  function sortSelectItems() {
+    const items = Array.from(selectBlock.querySelectorAll('.select__item'));
+    items.sort((a, b) => {
+      const isLatinA = /^[A-Za-z]/.test(a.textContent.trim());
+      const isLatinB = /^[A-Za-z]/.test(b.textContent.trim());
+      if (isLatinA && !isLatinB) return -1;
+      if (!isLatinA && isLatinB) return 1;
+      return 0;
+    });
+    items.forEach(item => selectBlock.appendChild(item));
+  } 
+
+  sortSelectItems();
+
   if (existingRows.length > 0) {
     buttonBlock.style.display = 'flex';
   }
@@ -200,7 +214,10 @@ function initManagers() {
     buttonBlock.style.display = 'flex';
 
     const managerArray = [NumManager, IDmanager, managerInputEmail.value, managerInputPrefix.value];
+    
 
+    managerInputEmail.value = ''
+    managerInputPrefix.value = ''
     managersTbody.insertAdjacentHTML(
       'beforeend',
       `<tr class="managers__stroke" data-id="${IDmanager}">
@@ -220,6 +237,7 @@ function initManagers() {
       'beforeend',
       `<p class="select__item" data-id="${IDmanager}">${managerArray[3]}</p>`
     );
+    sortSelectItems();
   });
 
   selectBlock.addEventListener('click', (e) => {
@@ -267,6 +285,8 @@ function initManagers() {
     selectBlock.querySelectorAll('.select__item').forEach(item => {
       if (item.textContent.trim() === rowPrefix) item.remove();
     });
+    
+    sortSelectItems();
 
     if (selectTitle.textContent.trim() === rowPrefix) {
       selectTitle.textContent = 'ВЫБРАТЬ МЕНЕДЖЕРА';
