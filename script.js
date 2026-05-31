@@ -271,7 +271,7 @@ const activeLink = document.querySelector('.nav-link.active');
 if (activeLink) {
   const currentTab = activeLink.dataset.tab;
   const currentPage = document.getElementById(currentTab);
-  if (currentPage) {
+  if (currentPage) { 
     currentPage.style.display = 'block';
   }
   pageInits[currentTab]?.();
