@@ -243,7 +243,6 @@ function initManagers() {
       selectTitle.textContent = 'ВЫБРАТЬ МЕНЕДЖЕРА';
       selectTitle.classList.remove('select__title-active');
       selectDelete.style.display = 'none';
-      selectBlock.style.display = 'none'
       selectBtn.classList.remove('select-open');
 
       // Сбрасываем подсветку

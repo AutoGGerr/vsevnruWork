@@ -797,6 +797,7 @@ h1 {
   top: 2.635vw;
   position: absolute;
 
+  margin-bottom: 2.083vw;
   border-bottom-left-radius: 0.31vw;
   border-bottom-right-radius: 0.31vw;
   z-index: 100;
