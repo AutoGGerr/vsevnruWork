@@ -217,6 +217,16 @@ function initManagers() {
     const item = e.target.closest('.select__item');
     if (!item) return;
 
+    // Сбрасываем стили у всех пунктов
+    selectBlock.querySelectorAll('.select__item').forEach(el => {
+      el.style.background = '';
+      el.style.color = '';
+    });
+
+    // Применяем стили к выбранному
+    item.style.background = '#F6FBFF';
+    item.style.color = '#0087FC';
+
     selectTitle.textContent = item.textContent;
     selectTitle.classList.add('select__title-active');
     selectBlock.classList.remove('select-active');
@@ -224,12 +234,18 @@ function initManagers() {
     selectDelete.style.display = 'flex';
   });
 
-  selectDelete.addEventListener('click', (e) => {
-    e.stopPropagation();
-    selectTitle.textContent = 'ВЫБРАТЬ МЕНЕДЖЕРА';
-    selectTitle.classList.remove('select__title-active');
-    selectDelete.style.display = 'none';
-  });
+    selectDelete.addEventListener('click', (e) => {
+      e.stopPropagation();
+      selectTitle.textContent = 'ВЫБРАТЬ МЕНЕДЖЕРА';
+      selectTitle.classList.remove('select__title-active');
+      selectDelete.style.display = 'none';
+
+      // Сбрасываем подсветку
+      selectBlock.querySelectorAll('.select__item').forEach(el => {
+        el.style.background = '';
+        el.style.color = '';
+      });
+    });
 
   managersTbody.addEventListener('click', (e) => {
     const deleteBtn = e.target.closest('.managers__btn-delete');
