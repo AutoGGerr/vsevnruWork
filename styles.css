@@ -636,7 +636,8 @@ h1 {
 .button__block{
   display: flex;
   flex-direction: column;
-  justify-content: end;
+  justify-content: start;
+  margin-top: 10.032vw;
   gap: 4.276vw;
 
   margin-left: 7.55vw;
