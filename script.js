@@ -5,9 +5,6 @@ const selectBtn = document.querySelector('.managers__select-btn')
 const selectTitle = document.querySelector('.managers__select-title')
 const managerPlus = document.querySelector('.managers__btn-add')
 
-
-
-
 const svgNS = "http://www.w3.org/2000/svg";
 const iconCodes = {
   managers: [0xf105, 0xf106],
@@ -107,11 +104,7 @@ function renderStaticText() {
   });
 }
 
-
-
 renderStaticText();
-
-
 
 const pagesContainer = document.querySelector('.static-stage');
 
@@ -121,8 +114,6 @@ const originalPagesHTML = Array.from(document.querySelectorAll('.page')).map(pag
     html: page.outerHTML
   };
 }); 
-
-
 
 navLinks.forEach((link) => {
   link.addEventListener('click', () => {
@@ -144,7 +135,6 @@ navLinks.forEach((link) => {
   });
 });
 
-
 const pageInits = {
   managers: initManagers,
   import: initPage,
@@ -161,7 +151,6 @@ function initManagers() {
   const managerInputPrefix = document.getElementById('managers__pr');
   const buttonBlock = document.querySelector('.button__block');
 
-  // Объявляем здесь — на уровне функции
   const existingRows = managersTbody.querySelectorAll('.managers__stroke');
   let IDmanager = existingRows.length;
   let NumManager = existingRows.length;
@@ -180,7 +169,25 @@ function initManagers() {
     items.forEach(item => selectBlock.appendChild(item));
   }
 
+  function sortTableRows() {
+    const rows = Array.from(managersTbody.querySelectorAll('.managers__stroke'));
+    rows.sort((a, b) => {
+      const textA = a.querySelector('.managers__table-prefix').textContent.trim();
+      const textB = b.querySelector('.managers__table-prefix').textContent.trim();
+      const isLatinA = /^[A-Za-z]/.test(textA);
+      const isLatinB = /^[A-Za-z]/.test(textB);
+      if (isLatinA && !isLatinB) return -1;
+      if (!isLatinA && isLatinB) return 1;
+      return textA.localeCompare(textB, isLatinA ? 'en' : 'ru');
+    });
+    rows.forEach(row => managersTbody.appendChild(row));
+    managersTbody.querySelectorAll('.managers__stroke').forEach((tr, index) => {
+      tr.querySelector('.managers__table-n').textContent = index + 1;
+    });
+  }
+
   sortSelectItems();
+  sortTableRows();
 
   if (existingRows.length > 0) {
     buttonBlock.style.display = 'flex';
@@ -192,12 +199,12 @@ function initManagers() {
     selectBtn.classList.toggle('select-open');
 
     if (selectBlock.classList.contains('select-active')) {
-    setTimeout(() => {
-      const rect = selectBlock.getBoundingClientRect();
-      const bottomOfSelect = rect.bottom + window.scrollY;
-      window.scrollTo({ top: bottomOfSelect - window.innerHeight + 20, behavior: 'smooth' });
-    }, 0);
-  }
+      setTimeout(() => {
+        const rect = selectBlock.getBoundingClientRect();
+        const bottomOfSelect = rect.bottom + window.scrollY;
+        window.scrollTo({ top: bottomOfSelect - window.innerHeight + 20, behavior: 'smooth' });
+      }, 0);
+    }
     document.addEventListener('click', (e) => {
       const isInside = e.target.closest('.managers__select');
       if (!isInside) {
@@ -216,10 +223,10 @@ function initManagers() {
     buttonBlock.style.display = 'flex';
 
     const managerArray = [NumManager, IDmanager, managerInputEmail.value, managerInputPrefix.value];
-    
 
-    managerInputEmail.value = ''
-    managerInputPrefix.value = ''
+    managerInputEmail.value = '';
+    managerInputPrefix.value = '';
+
     managersTbody.insertAdjacentHTML(
       'beforeend',
       `<tr class="managers__stroke" data-id="${IDmanager}">
@@ -239,20 +246,20 @@ function initManagers() {
       'beforeend',
       `<p class="select__item" data-id="${IDmanager}">${managerArray[3]}</p>`
     );
+
     sortSelectItems();
+    sortTableRows();
   });
 
   selectBlock.addEventListener('click', (e) => {
     const item = e.target.closest('.select__item');
     if (!item) return;
 
-    // Сбрасываем стили у всех пунктов
     selectBlock.querySelectorAll('.select__item').forEach(el => {
       el.style.background = '';
       el.style.color = '';
     });
 
-    // Применяем стили к выбранному
     item.style.background = '#F6FBFF';
     item.style.color = '#0087FC';
     selectBtn.classList.remove('select-open');
@@ -264,19 +271,18 @@ function initManagers() {
     selectDelete.style.display = 'flex';
   });
 
-    selectDelete.addEventListener('click', (e) => {
-      e.stopPropagation();
-      selectTitle.textContent = 'ВЫБРАТЬ МЕНЕДЖЕРА';
-      selectTitle.classList.remove('select__title-active');
-      selectDelete.style.display = 'none';
+  selectDelete.addEventListener('click', (e) => {
+    e.stopPropagation();
+    selectTitle.textContent = 'ВЫБРАТЬ МЕНЕДЖЕРА';
+    selectTitle.classList.remove('select__title-active');
+    selectDelete.style.display = 'none';
 
-      // Сбрасываем подсветку
-      selectBlock.querySelectorAll('.select__item').forEach(el => {
-        el.style.background = '';
-        el.style.color = '';
-      });
+    selectBlock.querySelectorAll('.select__item').forEach(el => {
+      el.style.background = '';
+      el.style.color = '';
     });
-          
+  });
+
   managersTbody.addEventListener('click', (e) => {
     const deleteBtn = e.target.closest('.managers__btn-delete');
     if (!deleteBtn) return;
@@ -288,8 +294,6 @@ function initManagers() {
       if (item.textContent.trim() === rowPrefix) item.remove();
     });
 
-    sortSelectItems();
-
     if (selectTitle.textContent.trim() === rowPrefix) {
       selectTitle.textContent = 'ВЫБРАТЬ МЕНЕДЖЕРА';
       selectTitle.classList.remove('select__title-active');
@@ -299,15 +303,14 @@ function initManagers() {
     row.remove();
     NumManager -= 1;
 
-    managersTbody.querySelectorAll('.managers__stroke').forEach((tr, index) => {
-      tr.querySelector('.managers__table-n').textContent = index + 1;
-    });
+    sortSelectItems();
+    sortTableRows();
 
     if (NumManager === 0) {
       buttonBlock.style.display = 'none';
     }
   });
-}
+} // конец initManagers
 
 function initPage() {
   const fileInput = document.querySelector("#file-input");
@@ -324,4 +327,3 @@ if (activeLink) {
   }
   pageInits[currentTab]?.();
 }
-
