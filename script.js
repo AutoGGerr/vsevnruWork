@@ -157,8 +157,8 @@ function initManagers() {
   const managerPlus = document.querySelector('.managers__btn-add');
   const selectBlock = document.querySelector('.select');
   const managersTbody = document.querySelector('.managers__tbody');
-  const managerInputEmail = document.getElementById('managers__input-email');
-  const managerInputPrefix = document.getElementById('managers__input-prefix');
+  const managerInputEmail = document.getElementById('managers__em');
+  const managerInputPrefix = document.getElementById('managers__pr');
   const buttonBlock = document.querySelector('.button__block');
 
   // Объявляем здесь — на уровне функции
