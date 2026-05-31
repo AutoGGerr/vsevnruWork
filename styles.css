@@ -837,7 +837,7 @@ h1 {
   z-index: -10;
 
   cursor: pointer;
-}
+} 
 
 .select__item:last-child{
   border-bottom-left-radius: 0.31vw;
