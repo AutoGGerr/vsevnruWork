@@ -813,6 +813,8 @@ h1 {
   align-items: center;
   background-color: #FFFFFF;
   z-index: -10;
+
+  cursor: pointer;
 }
 
 .select__item:last-child{

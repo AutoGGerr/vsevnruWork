@@ -173,7 +173,7 @@ function initManagers() {
   selectBtn.addEventListener('click', (e) => {
     selectTitle.classList.toggle('arrow-active');
     selectBlock.classList.toggle('select-active');
-    selectBtn.classList.add('select-open');
+    selectBtn.classList.toggle('select-open');
 
     document.addEventListener('click', (e) => {
       const isInside = e.target.closest('.managers__select');
@@ -243,7 +243,7 @@ function initManagers() {
       selectTitle.textContent = 'ВЫБРАТЬ МЕНЕДЖЕРА';
       selectTitle.classList.remove('select__title-active');
       selectDelete.style.display = 'none';
-      selectBtn.classList.remove('select-open');
+      selectBlock.style.display = 'none'
 
       // Сбрасываем подсветку
       selectBlock.querySelectorAll('.select__item').forEach(el => {
