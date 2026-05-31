@@ -323,7 +323,7 @@ h1 .svg-label {
 }
 
 .page {
-  padding: 1.83802vw 0.98958vw 0;
+  padding: 1.093vw 1.093vw 0;
 }
 
 h1 {
@@ -358,6 +358,7 @@ select {
   height: auto;
   background-color: var(--card);
   padding-left: 1.615vw;
+  padding-top: 1.145vw;
   padding-bottom: 3.125vw;
 }
 
