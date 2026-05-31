@@ -169,14 +169,16 @@ function initManagers() {
   function sortSelectItems() {
     const items = Array.from(selectBlock.querySelectorAll('.select__item'));
     items.sort((a, b) => {
-      const isLatinA = /^[A-Za-z]/.test(a.textContent.trim());
-      const isLatinB = /^[A-Za-z]/.test(b.textContent.trim());
+      const textA = a.textContent.trim();
+      const textB = b.textContent.trim();
+      const isLatinA = /^[A-Za-z]/.test(textA);
+      const isLatinB = /^[A-Za-z]/.test(textB);
       if (isLatinA && !isLatinB) return -1;
       if (!isLatinA && isLatinB) return 1;
-      return 0;
+      return textA.localeCompare(textB, isLatinA ? 'en' : 'ru');
     });
     items.forEach(item => selectBlock.appendChild(item));
-  } 
+  }
 
   sortSelectItems();
 
