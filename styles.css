@@ -517,6 +517,10 @@ h1 {
   width: 23.95vw;
 }
 
+.managers__table-email th{
+  font-weight: 200;
+}
+
 .managers__table-prefix{
   width: 6.71vw;
 }
