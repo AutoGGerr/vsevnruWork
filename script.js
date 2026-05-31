@@ -285,7 +285,7 @@ function initManagers() {
     selectBlock.querySelectorAll('.select__item').forEach(item => {
       if (item.textContent.trim() === rowPrefix) item.remove();
     });
-    
+
     sortSelectItems();
 
     if (selectTitle.textContent.trim() === rowPrefix) {
