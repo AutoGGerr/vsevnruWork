@@ -288,17 +288,18 @@ function initManagers() {
     if (!deleteBtn) return;
 
     const row = deleteBtn.closest('tr');
-    const rowPrefix = row.querySelector('.managers__table-prefix').textContent.trim();
+    const rowId = row.dataset.id;
 
-    selectBlock.querySelectorAll('.select__item').forEach(item => {
-      if (item.textContent.trim() === rowPrefix) item.remove();
-    });
-
-    if (selectTitle.textContent.trim() === rowPrefix) {
+  const matchingItem = selectBlock.querySelector(`.select__item[data-id="${rowId}"]`);
+  if (matchingItem) {
+    if (selectTitle.textContent.trim() === matchingItem.textContent.trim() 
+        && selectTitle.classList.contains('select__title-active')) {
       selectTitle.textContent = 'ВЫБРАТЬ МЕНЕДЖЕРА';
       selectTitle.classList.remove('select__title-active');
       selectDelete.style.display = 'none';
     }
+    matchingItem.remove();
+  }
 
     row.remove();
     NumManager -= 1;

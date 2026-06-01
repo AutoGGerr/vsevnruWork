@@ -544,7 +544,6 @@ h1 {
   display: flex;
   max-width: 30.625vw;
   border-radius: 0;
-
 }
 
 .managers__form div{
@@ -826,7 +825,7 @@ h1 {
 }
 .select__item {
   margin: 0;
-  width: 15.5vw;
+  width: 15.7vw;
   height: 2.6vw;
   font-size: 1.125vw;
   padding-left: 0.78vw;
@@ -836,6 +835,7 @@ h1 {
   background-color: #FFFFFF;
   z-index: -10;
 
+  border-bottom: 0.052vw solid rgba(0, 0, 0, 0.056);
   cursor: pointer;
 } 
 
